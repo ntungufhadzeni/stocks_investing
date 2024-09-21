@@ -3,8 +3,12 @@ import pandas as pd
 
 def calculate_ratios(financial_data):
     df = pd.DataFrame(index=financial_data['financial'].index)
-    df['Gross Margin %'] = financial_data['financial']['Gross Profit'] / financial_data['financial'][
-        'Total Revenue'] * 100
+    try:
+        df['Gross Margin %'] = financial_data['financial']['Gross Profit'] / financial_data['financial'][
+            'Total Revenue'] * 100
+    except ZeroDivisionError:
+        print('Error in calculating the Gross Margin %')
+
     df['Net Margin %'] = financial_data['financial']['Net Income'] / financial_data['financial']['Total Revenue'] * 100
 
     if 'Long Term Debt' in financial_data['income']:
